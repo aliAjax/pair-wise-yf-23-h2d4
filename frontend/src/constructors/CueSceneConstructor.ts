@@ -1,13 +1,17 @@
 import type { CueScene } from "../types/CueScene";
 
 export const createDefaultCueScene = (overrides: Partial<CueScene> = {}): CueScene => ({
-  id: 1 as never,
-  name: "name 1" as never,
-  fixture_states: "fixture states 1" as never,
-  fade_in_ms: "fade in ms 1" as never,
-  hold_ms: "hold ms 1" as never,
-  priority: "priority 1" as never,
-  scene_status: "READY" as never,
+  id: 0,
+  name: "",
+  fixture_states: [],
+  fade_in_ms: 0,
+  hold_ms: 0,
+  priority: 0,
+  scene_status: "DRAFT",
+  stale: false,
+  recalculating: false,
+  last_recalculated_at: "",
+  version: 1,
   ...overrides
 });
 
