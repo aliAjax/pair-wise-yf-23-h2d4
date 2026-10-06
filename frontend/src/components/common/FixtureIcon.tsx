@@ -1,5 +1,18 @@
-import { StatusBadge } from "./StatusBadge";
+import type { FixtureType } from "../../types/FixtureType";
 
-export function FixtureIcon({ title = "FixtureIcon", value = "READY" }: { title?: string; value?: string }) {
-  return <div className="shared-widget"><strong>{title}</strong><StatusBadge value={value} /></div>;
+const TYPE_GLYPH: Record<string, string> = {
+  PAR: "▮",
+  SPOT: "◎",
+  WASH: "▦",
+  BEAM: "▲",
+  STROBE: "⚡"
+};
+
+export function FixtureIcon({ type, locked = false }: { type: string; locked?: boolean }) {
+  const glyph = TYPE_GLYPH[type as FixtureType] ?? "●";
+  return (
+    <span className={"fixture-icon" + (locked ? " locked" : "")} title={locked ? "灯位已锁定" : type}>
+      {glyph}
+    </span>
+  );
 }

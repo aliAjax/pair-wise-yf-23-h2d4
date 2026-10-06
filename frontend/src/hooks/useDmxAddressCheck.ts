@@ -1,8 +1,14 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import type { Fixture } from "../types/Fixture";
+import type { DmxLayout } from "../types/DmxLayout";
+import { planDmxLayout } from "../utils/dmxLayout";
 
-export function useDmxAddressCheck<T>(rows: T[] = []) {
-  const [page, setPage] = useState(1);
-  const pageSize = 8;
-  const pageRows = useMemo(() => rows.slice((page - 1) * pageSize, page * pageSize), [rows, page]);
-  return { page, setPage, pageSize, pageRows, total: rows.length };
+/**
+ * DMX 编址核对：输入当前灯具列表，输出可核对的排布。
+ * - 每个宇宙的占用/剩余；
+ * - 已锁定灯位原址保留，其余按通道数自动补齐；
+ * - 装不下的排队，并汇总还缺多少通道。
+ */
+export function useDmxAddressCheck(fixtures: Fixture[] = []): DmxLayout {
+  return useMemo(() => planDmxLayout(fixtures), [fixtures]);
 }
